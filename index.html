@@ -184,21 +184,22 @@
             const volume = largura * comprimento * profundidade; // Volume da piscina em m³
             const area = largura * comprimento; // Área da piscina em m²
 
-            let quantidadeAquaCover;
+            let quantidadeAquaCoverPorAplicacao;
             if (profundidade <= 1.8) {
-                quantidadeAquaCover = volume * 1.75 / 1000; // litros
+                quantidadeAquaCoverPorAplicacao = volume * 1.75 / 1000; // litros por aplicação
             } else {
-                quantidadeAquaCover = area * 2.5 / 1000; // litros
+                quantidadeAquaCoverPorAplicacao = area * 2.5 / 1000; // litros por aplicação
             }
 
-            const custoAquaCover = quantidadeAquaCover * 392; // Custo por litro
             const reaplicacoesPorAno = Math.ceil(365 / 5); // Reaplicações anuais
-            const custoAnualAquaCover = custoAquaCover * reaplicacoesPorAno;
+            const quantidadeAquaCoverAnual = quantidadeAquaCoverPorAplicacao * reaplicacoesPorAno;
+
+            const custoAquaCoverAnual = quantidadeAquaCoverAnual * 392; // Custo total anual
 
             const economiaEnergiaMensal = custoEnergia * 0.3; // Economia de energia mensal (30%)
             const economiaEnergiaAnual = economiaEnergiaMensal * 12; // Economia anual
 
-            const economiaFinal = economiaEnergiaAnual - custoAnualAquaCover; // Economia líquida
+            const economiaFinal = economiaEnergiaAnual - custoAquaCoverAnual; // Economia líquida
 
             // Exibir os resultados
             const resultadoDiv = document.getElementById("resultado");
@@ -206,8 +207,8 @@
                 <h2>Resultados:</h2>
                 <p><strong>Volume da Piscina:</strong> ${volume.toFixed(2)} m³</p>
                 <p><strong>Área da Piscina:</strong> ${area.toFixed(2)} m²</p>
-                <p><strong>Quantidade de Aqua Cover:</strong> ${quantidadeAquaCover.toFixed(2)} litros</p>
-                <p><strong>Custo Anual de Aqua Cover:</strong> ${formatarMoeda(custoAnualAquaCover)}</p>
+                <p><strong>Quantidade Anual de Aqua Cover:</strong> ${quantidadeAquaCoverAnual.toFixed(2)} litros</p>
+                <p><strong>Custo Anual de Aqua Cover:</strong> ${formatarMoeda(custoAquaCoverAnual)}</p>
                 <p><strong>Economia Anual de Energia:</strong> ${formatarMoeda(economiaEnergiaAnual)}</p>
                 <div class="economia-final">
                     <p>Economia Total (Energia - Aqua Cover):</p>
