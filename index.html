@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Aqua Cover</title>
+    <style>
+        /* Estilo Global */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #bbdefb, #e3f2fd);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container Principal */
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Cabeçalho */
+        header h1 {
+            font-size: 24px;
+            color: #01579b;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 16px;
+            color: #0277bd;
+            margin-bottom: 20px;
+        }
+
+        /* Formulário */
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: 500;
+            color: #004d99;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Botão */
+        button {
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #026ca0;
+        }
+
+        /* Resultados */
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e1f5fe;
+            border: 1px solid #81d4fa;
+            border-radius: 8px;
+            text-align: left;
+            color: #01579b;
+        }
+
+        .resultado p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .resultado h2 {
+            color: #0277bd;
+        }
+
+        /* Destaque no Resultado Final */
+        .economia-final {
+            font-size: 20px;
+            font-weight: bold;
+            color: #004d40;
+            background-color: #b2dfdb;
+            border: 1px solid #80cbc4;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Rodapé */
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #0288d1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calculadora Aqua Cover</h1>
+            <p>Economize energia e otimize o uso de sua piscina comercial.</p>
+        </header>
+        <main>
+            <form id="calc-form">
+                <div class="form-group">
+                    <label for="largura">Largura da Piscina (m):</label>
+                    <input type="number" id="largura" placeholder="Ex: 10" required>
+                </div>
+                <div class="form-group">
+                    <label for="comprimento">Comprimento da Piscina (m):</label>
+                    <input type="number" id="comprimento" placeholder="Ex: 20" required>
+                </div>
+                <div class="form-group">
+                    <label for="profundidade">Profundidade da Piscina (m):</label>
+                    <input type="number" id="profundidade" placeholder="Ex: 1.5" required>
+                </div>
+                <div class="form-group">
+                    <label for="custo-energia">Custo Mensal de Energia (R$):</label>
+                    <input type="number" id="custo-energia" placeholder="Ex: 2000" required>
+                </div>
+                <button type="button" id="calcular">Calcular Economia</button>
+            </form>
+            <div id="resultado" class="resultado">
+                <!-- Resultados aparecerão aqui -->
+            </div>
+        </main>
+        <footer>
+            <p>© Aqua Cover - Soluções Sustentáveis para Piscinas</p>
+        </footer>
+    </div>
+    <script>
+        // Formatar números em moeda brasileira
+        function formatarMoeda(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        document.getElementById("calcular").addEventListener("click", function () {
+            // Capturar valores dos inputs
+            const largura = parseFloat(document.getElementById("largura").value);
+            const comprimento = parseFloat(document.getElementById("comprimento").value);
+            const profundidade = parseFloat(document.getElementById("profundidade").value);
+            const custoEnergia = parseFloat(document.getElementById("custo-energia").value);
+
+            // Validar os campos
+            if (isNaN(largura) || isNaN(comprimento) || isNaN(profundidade) || isNaN(custoEnergia)) {
+                alert("Por favor, preencha todos os campos corretamente!");
+                return;
+            }
+
+            // Cálculos
+            const volume = largura * comprimento * profundidade; // Volume da piscina em m³
+            const area = largura * comprimento; // Área da piscina em m²
+
+            let quantidadeAquaCover;
+            if (profundidade <= 1.8) {
+                quantidadeAquaCover = volume * 1.75 / 1000; // litros
+            } else {
+                quantidadeAquaCover = area * 2.5 / 1000; // litros
+            }
+
+            const custoAquaCover = quantidadeAquaCover * 392; // Custo por litro
+            const reaplicacoesPorAno = Math.ceil(365 / 5); // Reaplicações anuais
+            const custoAnualAquaCover = custoAquaCover * reaplicacoesPorAno;
+
+            const economiaEnergiaMensal = custoEnergia * 0.3; // Economia de energia mensal (30%)
+            const economiaEnergiaAnual = economiaEnergiaMensal * 12; // Economia anual
+
+            const economiaFinal = economiaEnergiaAnual - custoAnualAquaCover; // Economia líquida
+
+            // Exibir os resultados
+            const resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = `
+                <h2>Resultados:</h2>
+                <p><strong>Volume da Piscina:</strong> ${volume.toFixed(2)} m³</p>
+                <p><strong>Área da Piscina:</strong> ${area.toFixed(2)} m²</p>
+                <p><strong>Quantidade de Aqua Cover:</strong> ${quantidadeAquaCover.toFixed(2)} litros</p>
+                <p><strong>Custo Anual de Aqua Cover:</strong> ${formatarMoeda(custoAnualAquaCover)}</p>
+                <p><strong>Economia Anual de Energia:</strong> ${formatarMoeda(economiaEnergiaAnual)}</p>
+                <div class="economia-final">
+                    <p>Economia Total (Energia - Aqua Cover):</p>
+                    <p>${formatarMoeda(economiaFinal)}</p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
