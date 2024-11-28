@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -109,16 +109,16 @@
 
         /* Destaque no Resultado Final */
         .economia-final {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: #004d40;
             background-color: #b2dfdb;
             border: 1px solid #80cbc4;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             text-align: center;
             margin-top: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
         /* Rodapé */
@@ -138,19 +138,19 @@
         <main>
             <form id="calc-form">
                 <div class="form-group">
-                    <label for="largura">Largura da Piscina (m):</label>
+                    <label for="largura">Largura da piscina (m):</label>
                     <input type="number" id="largura" placeholder="Ex: 10" required>
                 </div>
                 <div class="form-group">
-                    <label for="comprimento">Comprimento da Piscina (m):</label>
+                    <label for="comprimento">Comprimento da piscina (m):</label>
                     <input type="number" id="comprimento" placeholder="Ex: 20" required>
                 </div>
                 <div class="form-group">
-                    <label for="profundidade">Profundidade da Piscina (m):</label>
+                    <label for="profundidade">Profundidade da piscina (m):</label>
                     <input type="number" id="profundidade" placeholder="Ex: 1.5" required>
                 </div>
                 <div class="form-group">
-                    <label for="custo-energia">Custo Mensal de Energia (R$):</label>
+                    <label for="custo-energia">Custo mensal de energia (R$):</label>
                     <input type="number" id="custo-energia" placeholder="Ex: 2000" required>
                 </div>
                 <button type="button" id="calcular">Calcular Economia</button>
@@ -198,22 +198,19 @@
 
             const custoAquaCoverAnual = quantidadeAquaCoverAnual * 392; // Custo total anual
             const custoEnergiaAnual = custoEnergia * 12; // Custo anual de energia
-            const economiaEnergiaAnual = custoEnergiaAnual * 0.3; // Economia anual de energia
-
-            const economiaFinal = economiaEnergiaAnual - custoAquaCoverAnual; // Economia líquida
+            const economiaFinal = custoEnergiaAnual * 0.3 - custoAquaCoverAnual; // Economia líquida
 
             // Exibir os resultados
             const resultadoDiv = document.getElementById("resultado");
             resultadoDiv.innerHTML = `
                 <h2>Resultados:</h2>
-                <p><strong>Volume da Piscina:</strong> ${volume.toFixed(2)} m³</p>
-                <p><strong>Área da Piscina:</strong> ${area.toFixed(2)} m²</p>
-                <p><strong>Quantidade Anual de Aqua Cover:</strong> ${quantidadeAquaCoverAnual.toFixed(2)} litros</p>
-                <p><strong>Investimento Anual em Aqua Cover:</strong> ${formatarMoeda(custoAquaCoverAnual)}</p>
-                <p><strong>Custo Anual de Energia:</strong> ${formatarMoeda(custoEnergiaAnual)}</p>
-                <p><strong>Economia Anual de Energia:</strong> ${formatarMoeda(economiaEnergiaAnual)}</p>
+                <p><strong>Volume da piscina:</strong> ${volume.toFixed(2)} m³</p>
+                <p><strong>Área da piscina:</strong> ${area.toFixed(2)} m²</p>
+                <p><strong>Quantidade anual de Aqua Cover:</strong> ${quantidadeAquaCoverAnual.toFixed(2)} litros</p>
+                <p><strong>Investimento anual em Aqua Cover:</strong> ${formatarMoeda(custoAquaCoverAnual)}</p>
+                <p><strong>Custo anual de energia:</strong> ${formatarMoeda(custoEnergiaAnual)}</p>
                 <div class="economia-final">
-                    <p>Economia Total (Energia - Aqua Cover):</p>
+                    <p>Economia total:</p>
                     <p>${formatarMoeda(economiaFinal)}</p>
                 </div>
             `;
