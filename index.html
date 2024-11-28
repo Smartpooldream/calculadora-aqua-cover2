@@ -15,7 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         /* Container Principal */
@@ -24,32 +24,32 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             width: 90%;
-            max-width: 500px;
-            padding: 20px;
+            max-width: 360px; /* Reduzido para melhor ajuste */
+            padding: 15px; /* Reduzido para ocupar menos espaço */
             text-align: center;
             box-sizing: border-box;
         }
 
         /* Cabeçalho */
         header h1 {
-            font-size: 24px;
+            font-size: 22px; /* Fonte menor para reduzir altura */
             color: #01579b;
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* Reduzido */
         }
 
         header p {
-            font-size: 16px;
+            font-size: 14px; /* Fonte menor */
             color: #0277bd;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Reduzido */
         }
 
         /* Formulário */
         form {
-            margin-top: 20px;
+            margin-top: 10px; /* Reduzido */
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduzido */
             text-align: left;
         }
 
@@ -57,15 +57,16 @@
             font-weight: 500;
             color: #004d99;
             margin-bottom: 5px;
+            font-size: 14px; /* Fonte menor */
             display: block;
         }
 
         input {
             width: 100%;
-            padding: 10px;
+            padding: 8px; /* Reduzido */
             border: 1px solid #ccc;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px; /* Fonte menor */
             box-sizing: border-box;
         }
 
@@ -77,7 +78,7 @@
             padding: 10px;
             width: 100%;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px; /* Fonte menor */
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -89,7 +90,7 @@
 
         /* Resultados */
         .resultado {
-            margin-top: 20px;
+            margin-top: 15px; /* Reduzido */
             padding: 10px;
             background-color: #e1f5fe;
             border: 1px solid #81d4fa;
@@ -100,48 +101,60 @@
 
         .resultado p {
             margin: 5px 0;
-            font-size: 15px;
+            font-size: 13px; /* Fonte menor */
         }
 
         .resultado h2 {
             color: #0277bd;
+            font-size: 20px; /* Reduzido */
         }
 
         /* Destaque no Resultado Final */
         .economia-final {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
             color: #ffffff;
-            background-color: #2e7d32;
-            border: 3px solid #1b5e20;
-            padding: 20px;
+            background-color: #4caf50;
+            border: 3px solid #388e3c;
+            padding: 14px; /* Reduzido */
+            height: 85%; /* Reduzido */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             border-radius: 12px;
             text-align: center;
-            margin-top: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            margin-top: 15px; /* Reduzido */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra ajustada */
         }
 
-        .economia-final p {
-            margin: 5px 0;
+        .economia-final .titulo {
+            font-size: 18px; /* Reduzido */
         }
 
-        .economia-final p:first-child {
-            font-size: 20px;
-            color: #a5d6a7;
-            margin-bottom: 10px;
+        .economia-final .valor {
+            font-size: 28px; /* Reduzido */
+            font-weight: bolder;
+            margin-top: 8px; /* Reduzido */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Ajustado */
         }
 
-        .economia-final p:last-child {
-            font-size: 48px; /* Valor destacado */
-            font-weight: bold;
-            color: #ffffff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 10px; /* Menor para telas pequenas */
+            }
+
+            .economia-final .valor {
+                font-size: 26px; /* Ajustado para telas pequenas */
+            }
         }
 
         /* Rodapé */
         footer {
-            margin-top: 10px;
-            font-size: 12px;
+            margin-top: 8px; /* Reduzido */
+            font-size: 11px; /* Reduzido */
             color: #0288d1;
         }
     </style>
@@ -181,43 +194,38 @@
         </footer>
     </div>
     <script>
-        // Formatar números em moeda brasileira
         function formatarMoeda(valor) {
             return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
 
         document.getElementById("calcular").addEventListener("click", function () {
-            // Capturar valores dos inputs
             const largura = parseFloat(document.getElementById("largura").value);
             const comprimento = parseFloat(document.getElementById("comprimento").value);
             const profundidade = parseFloat(document.getElementById("profundidade").value);
             const custoEnergia = parseFloat(document.getElementById("custo-energia").value);
 
-            // Validar os campos
             if (isNaN(largura) || isNaN(comprimento) || isNaN(profundidade) || isNaN(custoEnergia)) {
                 alert("Por favor, preencha todos os campos corretamente!");
                 return;
             }
 
-            // Cálculos
-            const volume = largura * comprimento * profundidade; // Volume da piscina em m³
-            const area = largura * comprimento; // Área da piscina em m²
+            const volume = largura * comprimento * profundidade;
+            const area = largura * comprimento;
 
             let quantidadeAquaCoverPorAplicacao;
             if (profundidade <= 1.8) {
-                quantidadeAquaCoverPorAplicacao = volume * 1.75 / 1000; // litros por aplicação
+                quantidadeAquaCoverPorAplicacao = volume * 1.75 / 1000;
             } else {
-                quantidadeAquaCoverPorAplicacao = area * 2.5 / 1000; // litros por aplicação
+                quantidadeAquaCoverPorAplicacao = area * 2.5 / 1000;
             }
 
-            const reaplicacoesPorAno = Math.ceil(365 / 5); // Reaplicações anuais
+            const reaplicacoesPorAno = Math.ceil(365 / 5);
             const quantidadeAquaCoverAnual = quantidadeAquaCoverPorAplicacao * reaplicacoesPorAno;
 
-            const custoAquaCoverAnual = quantidadeAquaCoverAnual * 392; // Custo total anual
-            const custoEnergiaAnual = custoEnergia * 12; // Custo anual de energia
-            const economiaFinal = custoEnergiaAnual * 0.3 - custoAquaCoverAnual; // Economia líquida
+            const custoAquaCoverAnual = quantidadeAquaCoverAnual * 392;
+            const custoEnergiaAnual = custoEnergia * 12;
+            const economiaFinal = custoEnergiaAnual * 0.3 - custoAquaCoverAnual;
 
-            // Exibir os resultados
             const resultadoDiv = document.getElementById("resultado");
             resultadoDiv.innerHTML = `
                 <h2>Resultados:</h2>
@@ -227,8 +235,8 @@
                 <p><strong>Investimento anual em Aqua Cover:</strong> ${formatarMoeda(custoAquaCoverAnual)}</p>
                 <p><strong>Custo anual de energia:</strong> ${formatarMoeda(custoEnergiaAnual)}</p>
                 <div class="economia-final">
-                    <p>Economia total:</p>
-                    <p>${formatarMoeda(economiaFinal)}</p>
+                    <p class="titulo">Economia total</p>
+                    <p class="valor">${formatarMoeda(economiaFinal)}</p>
                 </div>
             `;
         });
